@@ -1,0 +1,9 @@
+{
+    "apiUrl": "http://localhost:85/api",
+    "AZURE_CLIENT_ID": "ecdfc0ca-c3a7-4073-9b82-e2d7e1a9486b",
+    "AZURE_TENANT_ID" : "a011c8b7-e967-4f93-a084-a42595c4cc2d",
+    "AZURE_REDIRECURI" : "http://localhost:5173",
+    "companyLoginList" : [
+        { "name" : "BCP", "tenantToken" : "a011c8b7-e967-4f93-a084-a42595c4cc2d", "clientToken" : "ecdfc0ca-c3a7-4073-9b82-e2d7e1a9486b" }
+    ]
+}

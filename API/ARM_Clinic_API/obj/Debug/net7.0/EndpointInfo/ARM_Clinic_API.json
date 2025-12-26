@@ -1,0 +1,742 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ARM_Clinic_API",
+    "version": "1.0"
+  },
+  "paths": {
+    "/Login/Authen/UserLogin": {
+      "post": {
+        "tags": [
+          "Login"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserAuthen"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserAuthen"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserAuthen"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Login/Authen/UserManagement": {
+      "post": {
+        "tags": [
+          "Login"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUserManagementRequestMessage"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUserManagementRequestMessage"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUserManagementRequestMessage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Master/BanchList": {
+      "post": {
+        "tags": [
+          "Master"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MASBanchListRequestMessage"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MASBanchListRequestMessage"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MASBanchListRequestMessage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Master/CustomerList": {
+      "post": {
+        "tags": [
+          "Master"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MASCustomerListRequestMessage"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MASCustomerListRequestMessage"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MASCustomerListRequestMessage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Master/ProductList": {
+      "post": {
+        "tags": [
+          "Master"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MASProductInfoRequestMessage"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MASProductInfoRequestMessage"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MASProductInfoRequestMessage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Master/ServiceList": {
+      "post": {
+        "tags": [
+          "Master"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MASServiceInfoRequestMessage"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MASServiceInfoRequestMessage"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MASServiceInfoRequestMessage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Master/EmployeeList": {
+      "post": {
+        "tags": [
+          "Master"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MASEmployeeListRequestMessage"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MASEmployeeListRequestMessage"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MASEmployeeListRequestMessage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Master/DDL": {
+      "post": {
+        "tags": [
+          "Master"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/M_DDLRequestMessage"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/M_DDLRequestMessage"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/M_DDLRequestMessage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MASBanchList": {
+        "type": "object",
+        "properties": {
+          "BanchID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "BanchCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "BanchName": {
+            "type": "string",
+            "nullable": true
+          },
+          "BanchDate": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MASBanchListRequestMessage": {
+        "type": "object",
+        "properties": {
+          "MessageId": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "TimeStamp": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "SessionEmpID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "body": {
+            "$ref": "#/components/schemas/MASBanchList"
+          },
+          "Module": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MASCustomerList": {
+        "type": "object",
+        "properties": {
+          "CusID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "CusCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "Prefix": {
+            "type": "string",
+            "nullable": true
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Surname": {
+            "type": "string",
+            "nullable": true
+          },
+          "Telephone": {
+            "type": "string",
+            "nullable": true
+          },
+          "BanchID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "Email": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MASCustomerListRequestMessage": {
+        "type": "object",
+        "properties": {
+          "MessageId": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "TimeStamp": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "SessionEmpID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "body": {
+            "$ref": "#/components/schemas/MASCustomerList"
+          },
+          "Module": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MASEmployeeList": {
+        "type": "object",
+        "properties": {
+          "EmpID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "BanchID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "EmpCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "Prefix": {
+            "type": "string",
+            "nullable": true
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Surname": {
+            "type": "string",
+            "nullable": true
+          },
+          "Telephone": {
+            "type": "string",
+            "nullable": true
+          },
+          "RoleID": {
+            "type": "string",
+            "nullable": true
+          },
+          "Department": {
+            "type": "string",
+            "nullable": true
+          },
+          "Email": {
+            "type": "string",
+            "nullable": true
+          },
+          "UserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "Password": {
+            "type": "string",
+            "nullable": true
+          },
+          "Remark": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MASEmployeeListRequestMessage": {
+        "type": "object",
+        "properties": {
+          "MessageId": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "TimeStamp": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "SessionEmpID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "body": {
+            "$ref": "#/components/schemas/MASEmployeeList"
+          },
+          "Module": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MASProductInfo": {
+        "type": "object",
+        "properties": {
+          "ProductID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "ProductCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "ProductName": {
+            "type": "string",
+            "nullable": true
+          },
+          "ProductDetail": {
+            "type": "string",
+            "nullable": true
+          },
+          "ProductType": {
+            "type": "string",
+            "nullable": true
+          },
+          "ProductWeight": {
+            "type": "string",
+            "nullable": true
+          },
+          "ProductPrice": {
+            "type": "string",
+            "nullable": true
+          },
+          "ProductPicsBase64": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MASProductInfoRequestMessage": {
+        "type": "object",
+        "properties": {
+          "MessageId": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "TimeStamp": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "SessionEmpID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "body": {
+            "$ref": "#/components/schemas/MASProductInfo"
+          },
+          "Module": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MASServiceInfo": {
+        "type": "object",
+        "properties": {
+          "ServiceID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "ServiceCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "ServiceName": {
+            "type": "string",
+            "nullable": true
+          },
+          "ServiceType": {
+            "type": "string",
+            "nullable": true
+          },
+          "ServiceWeight": {
+            "type": "string",
+            "nullable": true
+          },
+          "ServiceDetail": {
+            "type": "string",
+            "nullable": true
+          },
+          "ServicePrice": {
+            "type": "string",
+            "nullable": true
+          },
+          "ServicePicsBase64": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MASServiceInfoRequestMessage": {
+        "type": "object",
+        "properties": {
+          "MessageId": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "TimeStamp": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "SessionEmpID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "body": {
+            "$ref": "#/components/schemas/MASServiceInfo"
+          },
+          "Module": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "M_DDL": {
+        "type": "object",
+        "properties": {
+          "TextSearch": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "M_DDLRequestMessage": {
+        "type": "object",
+        "properties": {
+          "MessageId": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "TimeStamp": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "SessionEmpID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "body": {
+            "$ref": "#/components/schemas/M_DDL"
+          },
+          "Module": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserAuthen": {
+        "type": "object",
+        "properties": {
+          "Username": {
+            "type": "string",
+            "nullable": true
+          },
+          "Password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserUserManagement": {
+        "type": "object",
+        "properties": {
+          "EmpID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "EmpCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "Username": {
+            "type": "string",
+            "nullable": true
+          },
+          "Password": {
+            "type": "string",
+            "nullable": true
+          },
+          "OldPassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "NewPassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "Prefix": {
+            "type": "string",
+            "nullable": true
+          },
+          "Fname": {
+            "type": "string",
+            "nullable": true
+          },
+          "Lname": {
+            "type": "string",
+            "nullable": true
+          },
+          "Address": {
+            "type": "string",
+            "nullable": true
+          },
+          "Telephone": {
+            "type": "string",
+            "nullable": true
+          },
+          "Email": {
+            "type": "string",
+            "nullable": true
+          },
+          "RoleID": {
+            "type": "string",
+            "nullable": true
+          },
+          "Department": {
+            "type": "string",
+            "nullable": true
+          },
+          "DelFlag": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserUserManagementRequestMessage": {
+        "type": "object",
+        "properties": {
+          "MessageId": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "TimeStamp": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "SessionEmpID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "body": {
+            "$ref": "#/components/schemas/UserUserManagement"
+          },
+          "Module": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

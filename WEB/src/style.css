@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+  font-family: "Noto Sans Thai", sans-serif;
+  /* font-family: Bangchak, Arial, sans-serif; */
+}
+@font-face {
+  font-family: "Bangchak";
+  src: url("./assets/Font_PRD/DB\ EE\ Stroke\ X\ v3.2.ttf") format("truetype");
+  src: url("./assets/Font_PRD/DB\ Ozone\ X\ Bd\ It\ v3.2.ttf")
+    format("truetype");
+  src: url("./assets/Font_PRD/DB\ Ozone\ X\ Bd\ v3.2.ttf") format("truetype");
+  src: url("./assets/Font_PRD/DB\ Ozone\ X\ It\ v3.2.ttf") format("truetype");
+  src: url("./assets/Font_PRD/DB\ Ozone\ X\ Li\ It\ v3.2.ttf")
+    format("truetype");
+  src: url("./assets/Font_PRD/DB\ Ozone\ X\ Li\ v3.2.ttf") format("truetype");
+  src: url("./assets/Font_PRD/DB\ Ozone\ X\ Med\ It\ v3.2.ttf")
+    format("truetype");
+  src: url("./assets/Font_PRD/DB\ Ozone\ X\ Med\ v3.2.ttf") format("truetype");
+  src: url("./assets/Font_PRD/DB\ Ozone\ X\ UlLi\ It\ v3.2.ttf")
+    format("truetype");
+  src: url("./assets/Font_PRD/DB\ Ozone\ X\ UlLi\ v3.2.ttf") format("truetype");
+  src: url("./assets/Font_PRD/DB\ Ozone\ X\ v3.2.ttf") format("truetype");
+  
+  /* src: url("./assets/Font_PRD/DB\ Ozone\ X.ttf");
+    src: url("./assets/Font_PRD/DB\ Ozone\ X\ Bd.ttf");
+    src: url("./assets/Font_PRD/DB\ Ozone\ X\ Bd\ It\ v3.2.ttf");
+    src: url("./assets/Font_PRD/DB\ Ozone\ X\ Bd\ v3.2.ttf");
+    src: url("./assets/Font_PRD/DB\ Ozone\ X\ BdIt.ttf");
+    src: url("@/assets/fonts/BridgestoneType-Bold.woff2");
+    src: url("@/assets/fonts/BridgestoneType-BoldItalic.woff");
+    src: url("@/assets/fonts/BridgestoneType-BoldItalic.woff2");
+    src: url("@/assets/fonts/BridgestoneType-Italic.woff");
+    src: url("@/assets/fonts/BridgestoneType-Italic.woff2");
+    src: url("@/assets/fonts/BridgestoneType-Regular.woff");
+    src: url("@/assets/fonts/BridgestoneType-Regular.woff2"); */
+  font-weight: normal;
+  font-style: normal;
+}
+
+.dp__pointer {
+  height: 25px !important;
+}
+
+.dp__input_icon_pad {
+  border-radius: 0.5rem !important;
+  outline-style: solid !important;
+  height: 42px !important;
+  outline-color: #e5e7eb !important;
+  outline-width: 1px !important;
+}
+
+.text-lg {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+:disabled {
+  cursor: default;
+  background: gainsboro;
+}
+
+.label {
+  justify-content: flex-start;
+}
+
+/* .my-font {
+    font-family: 'Bangchak';
+  } */

@@ -1,0 +1,130 @@
+[
+  {
+    "ContainingType": "ARM_Clinic_API.Controllers.LoginController",
+    "Method": "onPost_UserGetLogin",
+    "RelativePath": "Login/Authen/UserLogin",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ARM_Clinic_API.Model.UserAuthen",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ARM_Clinic_API.Controllers.LoginController",
+    "Method": "onPost_UserGetUserData",
+    "RelativePath": "Login/Authen/UserManagement",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ARM_Clinic_API.Model.RequestMessage\u00601[[ARM_Clinic_API.Model.UserUserManagement, ARM_Clinic_API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ARM_Clinic_API.Controllers.MasterController",
+    "Method": "CashAdvanceList",
+    "RelativePath": "Master/BanchList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ARM_Clinic_API.Model.RequestMessage\u00601[[ARM_Clinic_API.Model.MASBanchList, ARM_Clinic_API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ARM_Clinic_API.Controllers.MasterController",
+    "Method": "CustomerList",
+    "RelativePath": "Master/CustomerList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ARM_Clinic_API.Model.RequestMessage\u00601[[ARM_Clinic_API.Model.MASCustomerList, ARM_Clinic_API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ARM_Clinic_API.Controllers.MasterController",
+    "Method": "DDL",
+    "RelativePath": "Master/DDL",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ARM_Clinic_API.Model.RequestMessage\u00601[[ARM_Clinic_API.Model.M_DDL, ARM_Clinic_API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ARM_Clinic_API.Controllers.MasterController",
+    "Method": "EmployeeList",
+    "RelativePath": "Master/EmployeeList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ARM_Clinic_API.Model.RequestMessage\u00601[[ARM_Clinic_API.Model.MASEmployeeList, ARM_Clinic_API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ARM_Clinic_API.Controllers.MasterController",
+    "Method": "ProductList",
+    "RelativePath": "Master/ProductList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ARM_Clinic_API.Model.RequestMessage\u00601[[ARM_Clinic_API.Model.MASProductInfo, ARM_Clinic_API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ARM_Clinic_API.Controllers.MasterController",
+    "Method": "ServiceList",
+    "RelativePath": "Master/ServiceList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ARM_Clinic_API.Model.RequestMessage\u00601[[ARM_Clinic_API.Model.MASServiceInfo, ARM_Clinic_API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
