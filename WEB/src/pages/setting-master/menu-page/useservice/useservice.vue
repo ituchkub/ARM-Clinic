@@ -1,17 +1,18 @@
 <script setup>
 import { inject, onMounted, ref, watch } from "vue";
-import _apiBuyProduct from "../../../../api/buyproduct.js";
+import _apiUseService from "../../../../api/useservice.js";
+import _apiBuyService from "../../../../api/buyservice.js";
 import _apiCustomer from "../../../../api/customer.js";
-import _apiProduct from "../../../../api/product.js";
+import _apiService from "../../../../api/service.js";
 import modalConfirm from "../../../../components/modal-confirm.vue";
 import { getTokenStorage } from "../../../../helpers/storage.js";
 import { useStore } from "vuex";
 const columns = [
-  { label: "รหัสสินค้า", size: "lg", width: "25%" },
-  { label: "ชื่อสินค้า", size: "lg", width: "25%" },
-  { label: "ราคาสินค้า", size: "lg", width: "25%" },
-  { label: "จำนวน", size: "lg", width: "25%" },
-  { label: "ราคารวม", size: "lg", width: "25%" },
+  { label: "ลำดับ", size: "lg", width: "15%" },
+  { label: "ชื่อคอร์สความงาม", size: "lg", width: "25%" },
+  { label: "รายละเอียดการคอร์สความงาม", size: "lg", width: "60%" },
+  // { label: "จำนวน", size: "lg", width: "25%" },
+  // { label: "ราคารวม", size: "lg", width: "25%" },
   { label: "", size: "lg", width: "10%" },
 ];
 const $store = useStore()
@@ -19,11 +20,12 @@ const sessionInfo = getTokenStorage().sestionInfo;
 const rows = ref([]);
 // const rowsOriginal = ref([]);
 const rowsCustomer = ref([]);
-const rowsProduct = ref([]);
+const rowsService = ref([]);
 const stateModal = ref("add");
 const searchCustomer = ref("");
 const selectedCustomer = ref(null)
-const searchProduct = ref("");
+const searchService = ref("");
+const serviceSelect = ref("");
 const rowDelete = ref({
   row: {},
   index: 0,
@@ -39,22 +41,15 @@ import { computed } from 'vue'
 
 
 const formModal = ref({
-  ProductID: 0,
-  ProductCode: "",
-  ProductName: "",
-  ProductDetail: "",
-  ProductPrice: "",
-  ProductType: "",
+  ServiceDetail: "",
+
 });
 
 const onClearModal = () => {
   formModal.value = {
-    ProductID: 0,
-    ProductCode: "",
-    ProductName: "",
-    ProductDetail: "",
-    ProductPrice: "",
-    ProductType: "",
+
+    ServiceDetail: "",
+
   };
   modalErrorLabel.value = "";
 };
@@ -64,12 +59,7 @@ const onOpenModal = (val, row) => {
   } else {
     modalErrorLabel.value = "";
     formModal.value = {
-      ProductID: row.ProductID,
-      ProductCode: row.ProductCode,
-      ProductName: row.ProductName,
-      ProductDetail: row.ProductDetail,
-      ProductPrice: row.ProductPrice,
-      ProductType: row.ProductType,
+      ServiceDetail: row.ServiceDetail,
     };
     // formModal.value = row
   }
@@ -89,61 +79,50 @@ const onCusEnter = async () => {
   if (customer) {
     searchCustomer.value = customer.Name
     selectedCustomer.value = customer
+
+    await _apiBuyService.getList(
+      [{ UserID: customer.CusID }],
+      (response) => {
+        searchService.value = response.body;
+      }
+    )
   } else {
-    searchCustomer.value = ""
+    searchService.value = ""
     return
   }
 }
 
-const onProductEnter = async () => {
-  const product = rowsProduct.value.find(
-    p => p.ProductCode === searchProduct.value
+const onServiceSelect = async () => {git
+  console.log(serviceSelect.value)
+
+
+
+
+  await _apiUseService.getList(
+    { BuySID: serviceSelect.value },
+    (response) => {
+      rows.value = response.body;
+      console.log(response.body)
+    }
   )
 
-  if (!product) {
-    console.log('ไม่พบสินค้า')
-    return
-  }
 
-  const existing = rows.value.find(
-    r => r.ProductCode === product.ProductCode
-  )
 
-  if (existing) {
-    existing.Qty += 1
-    existing.Total = existing.Qty * existing.ProductPrice
-  } else {
-    rows.value.push({
-      ProductID: product.ProductID,
-      ProductCode: product.ProductCode,
-      ProductName: product.ProductName,
-      ProductPrice: Number(product.ProductPrice),
-      Qty: 1,
-      Total: Number(product.ProductPrice)
-    })
-  }
 
-  searchProduct.value = ""
 }
-
-
-
 
 
 const onSubmitModal = async () => {
   if (stateModal.value == "add") {
-    const body = rows.value.map(item => ({
-      BuyPID: 0,
-      ProductID: item.ProductID,
-      ProductQTY: item.Qty,
-      UserID: selectedCustomer.value.CusID,
-      BuyDate: new Date().toISOString()
-    }))
 
     // const body = {
-
     // };
-    await _apiBuyProduct.create(body, (response) => {
+
+    await _apiUseService.create({
+      BuySID: serviceSelect.value,
+      UserID: selectedCustomer.value.CusID,
+      UseDetail: formModal.value.ServiceDetail,
+    }, (response) => {
       if (response.Status === true) {
         document.getElementById("modal-manager").close();
         onLoadData();
@@ -160,15 +139,15 @@ const onLoadData = async () => {
     { CompanyCode: IsSuperAdmin.value ? "" : sessionInfo.CompanyCode },
     (response) => {
       rowsCustomer.value = response.body;
-      console.log(response.body)
+
     }
   )
 
-  await _apiProduct.getList(
+  await _apiService.getList(
     { CompanyCode: IsSuperAdmin.value ? "" : sessionInfo.CompanyCode },
     (response) => {
-      rowsProduct.value = response.body;
-      console.log(response.body)
+      rowsService.value = response.body;
+
     }
   )
 
@@ -188,8 +167,8 @@ const onClickDelete = (row, index) => {
   document.getElementById("modal-confirm").showModal();
 };
 const onEmitValueConfirm = () => {
-  const body = { ProductID: rowDelete.value.row.ProductID };
-  // _apiProduct.delete(body, (response) => {
+  const body = { ServiceID: rowDelete.value.row.ServiceID };
+  // _apiService.delete(body, (response) => {
   //   rows.value.splice(rowDelete.value.index, 1);
   //   document.getElementById("modal-confirm").close();
   // });
@@ -212,9 +191,9 @@ watch(
   // async (val) => {
   //   rows.value = rowsOriginal.value.filter((item) => {
   //     return (
-  //       item.ProductCode?.includes(val) ||
-  //       item.ProductName?.includes(val) ||
-  //       item.ProductDetail?.includes(val)
+  //       item.ServiceCode?.includes(val) ||
+  //       item.ServiceName?.includes(val) ||
+  //       item.ServiceDetail?.includes(val)
   //     );
   //   });
   // }
@@ -224,12 +203,22 @@ watch(
   <div class="flex justify-end space-x-2">
     <input class="bg-gray-200  px-8 py-2" placeholder="รหัสลุกค้า" v-model="searchCustomer" @keyup.enter="onCusEnter"
       :disabled="selectedCustomer" />
-    <input class="bg-gray-200 px-8 py-2" placeholder="รหัสสินค้า" v-model="searchProduct" :disabled="!selectedCustomer"
-      @keyup.enter="onProductEnter" />
-    <button class="rounded-full px-8 py-2 bg-custom-blue hover:bg-amber-600t" @click="onOpenModal('add')">
+    <!-- <input class="bg-gray-200 px-8 py-2" placeholder="รหัสคอร์สความงาม" v-model="searchService" :disabled="!selectedCustomer"
+      @keyup.enter="onServiceSelect" /> -->
+
+    <select required class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-72" v-model="serviceSelect"
+      :disabled="!selectedCustomer" @change="onServiceSelect">
+      <option value="0" disabled hidden>เลือกสินค้า</option>
+      <option v-for="items in searchService" :key="items.BuySID" :value="items.BuySID">
+        {{ items.ServiceName }}
+      </option>
+    </select>
+
+    <button class="rounded-full px-8 py-2 bg-custom-blue hover:bg-amber-600t" @click="onOpenModal('add')"
+      :disabled="!serviceSelect">
       <div class="flex items-center space-x-2">
         <span class="text-white font-bold">
-          ฿ {{ grandTotal.toLocaleString() }} ชำระเงิน
+          เพิ่มรายการ
         </span>
       </div>
     </button>
@@ -251,23 +240,20 @@ watch(
         <tr v-for="(row, index) in rows" :key="index">
 
           <td>
-            <span class="font-bold">{{
-              `${row?.Prefix || ""} ${row?.ProductCode || ""
-              }`
-            }}</span>
+            <span class="font-bold">{{ index + 1 }}</span>
           </td>
           <td>
-            <span class="font-bold">{{ row?.ProductName || "" }}</span>
+            <span class="font-bold">{{ row?.ServiceName || "" }}</span>
           </td>
           <td>
-            <span class="font-bold">{{ row?.ProductPrice || "" }}</span>
+            <span class="font-bold">{{ row?.UseDetail || "" }}</span>
           </td>
-          <td>
+          <!-- <td>
             <span class="font-bold">{{ row?.Qty || "" }}</span>
           </td>
           <td>
             <span class="font-bold">{{ row?.Total || "" }}</span>
-          </td>
+          </td> -->
           <td>
             <div class="flex space-x-3">
               <!-- <button @click="onOpenModal('edit', row)"
@@ -307,7 +293,7 @@ watch(
             fill="#48A23F" />
         </svg> -->
         <span class="font-bold text-xl">{{
-          stateModal == "add" ? "แจ้งชำระเงิน" : ""
+          stateModal == "add" ? "รายละเอียดการให้คอร์สความงาม" : ""
         }}</span>
       </div>
       <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" @click="onCloseModal">
@@ -317,6 +303,11 @@ watch(
         <div class="mt-3 mb-3">
           <div class="flex flex-wrap flex-row">
 
+            <!-- <div class="px-3 basis-5/5 mb-3"> -->
+            <!-- <label class="label font-bold">ชื่อสาขา <span style="color: red">*</span></label> -->
+            <textarea required v-model="formModal.ServiceDetail" placeholder="" rows="4"
+              class="outline rounded-lg px-3 py-2 outline-gray-300 outline-2 w-full resize-none"></textarea>
+            <!-- </div> -->
           </div>
           <div class="flex justify-between mt-10">
             <div>
@@ -328,7 +319,7 @@ watch(
               <input type="button" @click="onCloseModal"
                 class="rounded-full bg-gray-400 hover:bg-gray-500 text-white px-3 py-2 w-40" value="ยกเลิก" />
               <button type="submit" class="rounded-full bg-custom-blue hover:bg-amber-600t text-white px-3 py-2 w-40">
-                ชำระเงินเรียบร้อย
+                บันทึกรายการ
               </button>
             </div>
           </div>

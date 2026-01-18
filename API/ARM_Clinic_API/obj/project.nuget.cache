@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kwCQesXHLRg=",
+  "dgSpecHash": "6b7RYkWP2TU=",
   "success": true,
-  "projectFilePath": "C:\\FusionSoft\\ABF\\ARM_Clinic\\API\\ARM_Clinic_API\\ARM_Clinic_API.csproj",
+  "projectFilePath": "C:\\FusionSoft\\ABF\\ARM-Clinic\\API\\ARM_Clinic_API\\ARM_Clinic_API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ituch\\.nuget\\packages\\dapper\\2.1.28\\dapper.2.1.28.nupkg.sha512",
     "C:\\Users\\ituch\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.15\\microsoft.aspnetcore.authentication.jwtbearer.7.0.15.nupkg.sha512",

@@ -249,36 +249,37 @@ namespace ARM_Clinic_API.Repo
             return response;
         }
 
-        //public object BuyProductList(RequestMessage<BuyProduct> request)
-        //{
-        //    ResponseMessage<List<Object>> response = new ResponseMessage<List<Object>>();
-        //    try
-        //    {
-        //        var p = new DynamicParameters();
-        //        p.Add("@Module", request.Module);
-        //        p.Add("@SessionEmpID", request.SessionEmpID);
+
+        public object UseServiceList(RequestMessage<UseService> request)
+        {
+            ResponseMessage<List<Object>> response = new ResponseMessage<List<Object>>();
+            try
+            {
+                var p = new DynamicParameters();
+                p.Add("@Module", request.Module);
+                p.Add("@SessionEmpID", request.SessionEmpID);
 
 
-        //        foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(request.body))
-        //        {
-        //            p.Add($"@{prop.Name}", prop.GetValue(request.body));
-        //        }
-        //        p.Add("@StatusId", dbType: DbType.Int32, direction: ParameterDirection.Output);
-        //        p.Add("@StatusText", dbType: DbType.String, direction: ParameterDirection.Output, size: 200);
-        //        using (var conn = new SqlConnection(ConnectionStrings.ConnectionStringss()))
-        //        {
-        //            response.body = conn.Query<Object>("USP_MAS_ServiceInfo", p, commandType: CommandType.StoredProcedure).ToList();
-        //            response.Status = (p.Get<int>("@StatusId") == 0 ? true : false);
-        //            response.ErrorMessage = p.Get<string>("@StatusText");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        response.Status = false;
-        //        response.ErrorMessage = ex.Message;
-        //    }
-        //    return response;
-        //}
+                foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(request.body))
+                {
+                    p.Add($"@{prop.Name}", prop.GetValue(request.body));
+                }
+                p.Add("@StatusId", dbType: DbType.Int32, direction: ParameterDirection.Output);
+                p.Add("@StatusText", dbType: DbType.String, direction: ParameterDirection.Output, size: 200);
+                using (var conn = new SqlConnection(ConnectionStrings.ConnectionStringss()))
+                {
+                    response.body = conn.Query<Object>("USP_Use_Service", p, commandType: CommandType.StoredProcedure).ToList();
+                    response.Status = (p.Get<int>("@StatusId") == 0 ? true : false);
+                    response.ErrorMessage = p.Get<string>("@StatusText");
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.ErrorMessage = ex.Message;
+            }
+            return response;
+        }
 
 
         public object BuyProductList(RequestMessage<List<BuyProduct>> request)

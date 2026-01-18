@@ -13,6 +13,11 @@ import service from "./menu-page/service/service.vue";
 import buyproduct from "./menu-page/buyproduct/buyproduct.vue";
 import buyservice from "./menu-page/buyservice/buyservice.vue";
 
+import logbuyproduct from "./menu-page/logbuyproduct/logbuyproduct.vue";
+import logbuyservice from "./menu-page/logbuyservice/logbuyservice.vue";
+
+import useservice from "./menu-page/useservice/useservice.vue";
+
 const RoleId = ref([])
 const pageOptions = ref({})
 const menuOpen = ref(0)
@@ -69,9 +74,10 @@ var menuListMainSummarize = [
 
 var menuListMainService = [
     { menuName: "ซื้อสินค้า", Type: "3" },
-    { menuName: "ซื้อบริการ", Type: "3" },
+    { menuName: "ซื้อคอร์สความงาม", Type: "3" },
     { menuName: "ประวัติการซื้อสินค้า", Type: "3" },
-    { menuName: "ประวัติการซื้อบริการ", Type: "3" },
+    { menuName: "ประวัติการซื้อคอร์สความงาม", Type: "3" },
+    { menuName: "ใช้คอร์สความงาม", Type: "3" },
 ]
 
 
@@ -83,7 +89,7 @@ var menuListMain = [
     { menuName: "พนักงาน", Type: "5" },
     { menuName: "ลูกค้า", Type: "5" },
     { menuName: "สินค้า", Type: "5" },
-    { menuName: "บริการ", Type: "5" },
+    { menuName: "คอร์สความงาม", Type: "5" },
 ]
 
 
@@ -263,14 +269,14 @@ onMounted(async () => {
                 </transition> -->
 
 
-                <div v-if="!RoleId || RoleId.includes('บริการ')" @click="onActiveMenu('3')"
+                <div v-if="!RoleId || RoleId.includes('เมนูหลัก')" @click="onActiveMenu('3')"
                     class="px-3 pt-3 flex space-x-2 items-center cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" class="w-4 h-4" viewBox="0 0 50 50">
                         <path
                             d="M 0 9 L 0 11 L 50 11 L 50 9 Z M 0 24 L 0 26 L 50 26 L 50 24 Z M 0 39 L 0 41 L 50 41 L 50 39 Z">
                         </path>
                     </svg>
-                    <span class="font-bold text-lg">บริการ</span>
+                    <span class="font-bold text-lg">เมนูหลัก</span>
                 </div>
                 <transition name="menu-fade" @before-enter="beforeEnter" @enter="enter" @leave="leave">
                     <ul v-if="menuActive == '3'" class="menu w-full rounded-box pl-2">
@@ -395,10 +401,16 @@ onMounted(async () => {
                 <product v-if="menuOpen === 'สินค้า'" />
                 <productStock v-if="menuOpen === 'คลังสินค้า'" />
                 <sumProductStock v-if="menuOpen === 'สรุปยอดคลังสินค้า'" />
-                <service v-if="menuOpen === 'บริการ'" />
+                <service v-if="menuOpen === 'คอร์สความงาม'" />
 
                 <buyproduct v-if="menuOpen === 'ซื้อสินค้า'" />
-                <buyservice v-if="menuOpen === 'ซื้อบริการ'" />
+                <buyservice v-if="menuOpen === 'ซื้อคอร์สความงาม'" />
+
+                <logbuyproduct v-if="menuOpen === 'ประวัติการซื้อสินค้า'" />
+                <logbuyservice v-if="menuOpen === 'ประวัติการซื้อคอร์สความงาม'" />
+
+
+                <useservice v-if="menuOpen === 'ใช้คอร์สความงาม'" />
 
 
             </div>

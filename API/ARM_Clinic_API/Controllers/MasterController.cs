@@ -115,6 +115,22 @@ namespace ARM_Clinic_API.Controllers
             }
         }
 
+
+        [HttpPost]
+        [Route("UseServiceList")]
+        public IActionResult UseServiceList([FromBody] RequestMessage<UseService> request)
+        {
+            if (request != null)
+            {
+                return Ok(masterRepo.UseServiceList(request));
+            }
+            else
+            {
+                return BadRequest(new ResponseMessage<int>() { Status = false, ErrorMessage = "Access denied" });
+            }
+        }
+
+
         [HttpPost]
         [Route("EmployeeList")]
         public IActionResult EmployeeList([FromBody] RequestMessage<MASEmployeeList> request)

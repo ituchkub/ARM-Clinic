@@ -49,6 +49,19 @@
         public string? BuyDate { get; set; }
     }
 
+    public class UseService
+    {
+        public int? UseSID { get; set; }
+        public int? BuySID { get; set; }
+        public int? UserID { get; set; }
+        public string? UseDate { get; set; }
+        public string? UseDetail { get; set; }
+    }
+
+
+
+
+
 
     public class MASServiceInfo
     {

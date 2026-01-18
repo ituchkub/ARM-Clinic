@@ -5,9 +5,9 @@ import modalConfirm from "../../../../components/modal-confirm.vue";
 import { getTokenStorage } from "../../../../helpers/storage.js";
 import { useStore } from "vuex";
 const columns = [
-  { label: "รหัสบริการ", size: "lg", width: "25%" },
-  { label: "ชื่อบริการ", size: "lg", width: "25%" },
-  { label: "ราคาบริการ", size: "lg", width: "25%" },
+  { label: "รหัสคอร์สความงาม", size: "lg", width: "25%" },
+  { label: "ชื่อคอร์สความงาม", size: "lg", width: "25%" },
+  { label: "ราคาคอร์สความงาม", size: "lg", width: "25%" },
   { label: "", size: "lg", width: "5%" },
 ];
 const $store = useStore()
@@ -177,7 +177,7 @@ watch(
         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6.5 8.5H0.5V6.5H6.5V0.5H8.5V6.5H14.5V8.5H8.5V14.5H6.5V8.5Z" fill="white" />
         </svg>
-        <span class="text-white font-bold">เพิ่มข้อมูลบริการ</span>
+        <span class="text-white font-bold">เพิ่มข้อมูลคอร์สความงาม</span>
       </div>
     </button>
   </div>
@@ -247,7 +247,7 @@ watch(
             fill="#48A23F" />
         </svg>
         <span class="font-bold text-xl">{{
-          stateModal == "add" ? "เพิ่มข้อมูลบริการ" : "แก้ไขข้อมูลบริการ"
+          stateModal == "add" ? "เพิ่มข้อมูลคอร์สความงาม" : "แก้ไขข้อมูลคอร์สความงาม"
         }}</span>
       </div>
       <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" @click="onCloseModal">
@@ -257,23 +257,23 @@ watch(
         <div class="mt-3 mb-3">
           <div class="flex flex-wrap flex-row">
             <div class="px-3 basis-1/5 mb-3">
-              <label class="label font-bold">รหัสบริการ <span style="color: red">*</span></label>
-              <input required v-model="formModal.ServiceCode" placeholder="รหัสบริการ" type="text"
+              <label class="label font-bold">รหัสคอร์สความงาม <span style="color: red">*</span></label>
+              <input required v-model="formModal.ServiceCode" placeholder="รหัสคอร์สความงาม" type="text"
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
             </div>
             <div class="px-3 basis-2/5 mb-3">
-              <label class="label font-bold">ชื่อบริการ <span style="color: red">*</span></label>
-              <input required v-model="formModal.ServiceName" placeholder="ชื่อบริการ" type="text"
+              <label class="label font-bold">ชื่อคอร์สความงาม <span style="color: red">*</span></label>
+              <input required v-model="formModal.ServiceName" placeholder="ชื่อคอร์สความงาม" type="text"
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
             </div>
             <div class="px-3 basis-1/5 mb-3">
-              <label class="label font-bold">ประเภทบริการ <span style="color: red">*</span></label>
-              <input required v-model="formModal.ServiceType" placeholder="ประเภทบริการ" type="text"
+              <label class="label font-bold">ประเภทคอร์สความงาม <span style="color: red">*</span></label>
+              <input required v-model="formModal.ServiceType" placeholder="ประเภทคอร์สความงาม" type="text"
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
             </div>
             <div class="px-3 basis-1/5 mb-3">
-              <label class="label font-bold">ราคาบริการ <span style="color: red">*</span></label>
-              <input required v-model="formModal.ServicePrice" placeholder="ราคาบริการ" type="text"
+              <label class="label font-bold">ราคาคอร์สความงาม <span style="color: red">*</span></label>
+              <input required v-model="formModal.ServicePrice" placeholder="ราคาคอร์สความงาม" type="text"
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
             </div>
             <!-- <div class="px-3 basis-2/5 mb-3">

@@ -7,9 +7,9 @@ import modalConfirm from "../../../../components/modal-confirm.vue";
 import { getTokenStorage } from "../../../../helpers/storage.js";
 import { useStore } from "vuex";
 const columns = [
-  { label: "รหัสบริการ", size: "lg", width: "25%" },
-  { label: "ชื่อบริการ", size: "lg", width: "25%" },
-  { label: "ราคาบริการ", size: "lg", width: "25%" },
+  { label: "รหัสคอร์สความงาม", size: "lg", width: "25%" },
+  { label: "ชื่อคอร์สความงาม", size: "lg", width: "25%" },
+  { label: "ราคาคอร์สความงาม", size: "lg", width: "25%" },
   { label: "จำนวน", size: "lg", width: "25%" },
   { label: "ราคารวม", size: "lg", width: "25%" },
   { label: "", size: "lg", width: "10%" },
@@ -82,7 +82,8 @@ const onCloseModal = () => {
 
 const onCusEnter = async () => {
   const customer = rowsCustomer.value.find(
-    c => c.CusCode === searchCustomer.value
+    c => c.CusCode?.toUpperCase() === searchCustomer.value?.toUpperCase()
+
   )
 
   if (customer) {
@@ -100,7 +101,7 @@ const onServiceEnter = async () => {
   )
 
   if (!Service) {
-    console.log('ไม่พบบริการ')
+    console.log('ไม่พบคอร์สความงาม')
     return
   }
 
@@ -223,7 +224,7 @@ watch(
   <div class="flex justify-end space-x-2">
     <input class="bg-gray-200  px-8 py-2" placeholder="รหัสลุกค้า" v-model="searchCustomer" @keyup.enter="onCusEnter"
       :disabled="selectedCustomer" />
-    <input class="bg-gray-200 px-8 py-2" placeholder="รหัสบริการ" v-model="searchService" :disabled="!selectedCustomer"
+    <input class="bg-gray-200 px-8 py-2" placeholder="รหัสคอร์สความงาม" v-model="searchService" :disabled="!selectedCustomer"
       @keyup.enter="onServiceEnter" />
     <button class="rounded-full px-8 py-2 bg-custom-blue hover:bg-amber-600t" @click="onOpenModal('add')">
       <div class="flex items-center space-x-2">
