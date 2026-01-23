@@ -73,6 +73,9 @@
         public string? ServiceDetail { get; set; }
         public string? ServicePrice { get; set; }
         public string? ServicePicsBase64 { get; set; }
+        public string? Commission { get; set; }
+        public string? Times { get; set; }
+        
     }
 
 
@@ -107,6 +110,7 @@
         public string? ProductWeight { get; set; }
         public string? ProductPrice { get; set; }
         public string? ProductPicsBase64 { get; set; }
+        public string? Commission { get; set; }
     }
 
 

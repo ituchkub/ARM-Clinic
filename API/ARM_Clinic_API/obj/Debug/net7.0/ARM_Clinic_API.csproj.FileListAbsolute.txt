@@ -124,3 +124,4 @@ C:\FusionSoft\ABF\ARM-Clinic\API\ARM_Clinic_API\obj\Debug\net7.0\refint\ARM_Clin
 C:\FusionSoft\ABF\ARM-Clinic\API\ARM_Clinic_API\obj\Debug\net7.0\ARM_Clinic_API.pdb
 C:\FusionSoft\ABF\ARM-Clinic\API\ARM_Clinic_API\obj\Debug\net7.0\ARM_Clinic_API.genruntimeconfig.cache
 C:\FusionSoft\ABF\ARM-Clinic\API\ARM_Clinic_API\obj\Debug\net7.0\ref\ARM_Clinic_API.dll
+C:\FusionSoft\ABF\ARM-Clinic\API\ARM_Clinic_API\obj\Debug\net7.0\swae.build.ex.cache

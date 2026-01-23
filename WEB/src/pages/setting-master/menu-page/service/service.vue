@@ -7,6 +7,7 @@ import { useStore } from "vuex";
 const columns = [
   { label: "รหัสคอร์สความงาม", size: "lg", width: "25%" },
   { label: "ชื่อคอร์สความงาม", size: "lg", width: "25%" },
+  { label: "จำนวนครั้ง", size: "lg", width: "25%" },
   { label: "ราคาคอร์สความงาม", size: "lg", width: "25%" },
   { label: "", size: "lg", width: "5%" },
 ];
@@ -34,6 +35,8 @@ const formModal = ref({
   ServiceDetail: "",
   ServicePrice: "",
   ServiceType: "",
+  Commission: "",
+  Times: "",
 });
 
 const onClearModal = () => {
@@ -44,6 +47,8 @@ const onClearModal = () => {
     ServiceDetail: "",
     ServicePrice: "",
     ServiceType: "",
+    Commission: "",
+    Times: "",
   };
   modalErrorLabel.value = "";
 };
@@ -59,6 +64,8 @@ const onOpenModal = (val, row) => {
       ServiceDetail: row.ServiceDetail,
       ServicePrice: row.ServicePrice,
       ServiceType: row.ServiceType,
+      Commission: row.Commission,
+      Times: row.Times,
     };
     // formModal.value = row
   }
@@ -89,6 +96,8 @@ const onSubmitModal = async () => {
       ServiceDetail: formModal.value.ServiceDetail,
       ServicePrice: formModal.value.ServicePrice,
       ServiceType: formModal.value.ServiceType,
+      Times: formModal.value.Times,
+      Commission: formModal.value.Commission,
     };
     await _apiService.create(body, (response) => {
       if (response.Status === true) {
@@ -107,6 +116,8 @@ const onSubmitModal = async () => {
       ServiceDetail: formModal.value.ServiceDetail,
       ServicePrice: formModal.value.ServicePrice,
       ServiceType: formModal.value.ServiceType,
+      Times: formModal.value.Times,
+      Commission: formModal.value.Commission,
 
     };
     console.log(body)
@@ -206,6 +217,9 @@ watch(
             <span class="font-bold">{{ row?.ServiceName || "" }}</span>
           </td>
           <td>
+            <span class="font-bold">{{ row?.Times || "" }}</span>
+          </td>
+          <td>
             <span class="font-bold">{{ row?.ServicePrice || "" }}</span>
           </td>
           <td>
@@ -256,26 +270,45 @@ watch(
       <form @submit.prevent="onSubmitModal">
         <div class="mt-3 mb-3">
           <div class="flex flex-wrap flex-row">
-            <div class="px-3 basis-1/5 mb-3">
+            <div class="px-3 basis-1/4 mb-3">
               <label class="label font-bold">รหัสคอร์สความงาม <span style="color: red">*</span></label>
               <input required v-model="formModal.ServiceCode" placeholder="รหัสคอร์สความงาม" type="text"
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
             </div>
-            <div class="px-3 basis-2/5 mb-3">
+            <div class="px-3 basis-3/4 mb-3">
               <label class="label font-bold">ชื่อคอร์สความงาม <span style="color: red">*</span></label>
               <input required v-model="formModal.ServiceName" placeholder="ชื่อคอร์สความงาม" type="text"
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
             </div>
-            <div class="px-3 basis-1/5 mb-3">
+            <div class="px-3 basis-1/4 mb-3">
               <label class="label font-bold">ประเภทคอร์สความงาม <span style="color: red">*</span></label>
               <input required v-model="formModal.ServiceType" placeholder="ประเภทคอร์สความงาม" type="text"
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
             </div>
-            <div class="px-3 basis-1/5 mb-3">
+            <div class="px-3 basis-1/4 mb-3">
+              <label class="label font-bold">จำนวนครั้ง <span style="color: red">*</span></label>
+              <input required v-model="formModal.Times" placeholder="จำนวนครั้ง" type="text"
+                class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
+            </div>
+            <div class="px-3 basis-1/4 mb-3">
               <label class="label font-bold">ราคาคอร์สความงาม <span style="color: red">*</span></label>
               <input required v-model="formModal.ServicePrice" placeholder="ราคาคอร์สความงาม" type="text"
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
             </div>
+            <div class="px-3 basis-1/4 mb-3">
+              <label class="label font-bold">ค่าคอมมิชชั่น <span style="color: red">*</span></label>
+              <input required v-model="formModal.Commission" placeholder="ค่าคอมมิชชั่น" type="text"
+                class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
+            </div>
+
+            <div class="px-3 basis-3/4 mb-3">
+              <label class="label font-bold">รายละเอียดคอร์สความงาม <span style="color: red">*</span></label>
+              <!-- <input required v-model="formModal.ServiceDetail" placeholder="ชื่อคอร์สความงาม" type="text"
+                class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" /> -->
+              <textarea required v-model="formModal.ServiceDetail" placeholder="ชื่อคอร์สความงาม" rows="3"
+                class="outline rounded-lg px-3 py-2 outline-gray-300 outline-2 w-full resize-none"></textarea>
+            </div>
+
             <!-- <div class="px-3 basis-2/5 mb-3">
               <label class="label font-bold">วันที่เปิดทำการ <span style="color: red">*</span></label>
               <input required v-model="formModal.ServiceDetail" placeholder="วันที่เปิดทำการ" type="text"

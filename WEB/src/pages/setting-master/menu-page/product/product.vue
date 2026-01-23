@@ -34,6 +34,8 @@ const formModal = ref({
   ProductDetail: "",
   ProductPrice: "",
   ProductType: "",
+  ProductPicsBase64: "",
+  Commission: "",
 });
 
 const onClearModal = () => {
@@ -44,9 +46,35 @@ const onClearModal = () => {
     ProductDetail: "",
     ProductPrice: "",
     ProductType: "",
+    ProductPicsBase64: "",
+    Commission: "",
   };
   modalErrorLabel.value = "";
 };
+
+
+async function handleProductPics(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const base64 = await convertToBase64(file);
+  formModal.value.ProductPicsBase64 = base64;
+
+
+
+}
+
+
+function convertToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+    reader.readAsDataURL(file);
+  });
+}
+
+
 const onOpenModal = (val, row) => {
   if (val === "add") {
     onClearModal();
@@ -59,6 +87,8 @@ const onOpenModal = (val, row) => {
       ProductDetail: row.ProductDetail,
       ProductPrice: row.ProductPrice,
       ProductType: row.ProductType,
+      ProductPicsBase64: row.ProductPicsBase64,
+      Commission: row.Commission,
     };
     // formModal.value = row
   }
@@ -89,6 +119,8 @@ const onSubmitModal = async () => {
       ProductDetail: formModal.value.ProductDetail,
       ProductPrice: formModal.value.ProductPrice,
       ProductType: formModal.value.ProductType,
+      Commission: formModal.value.Commission,
+      ProductPicsBase64: formModal.value.ProductPicsBase64,
     };
     await _apiProduct.create(body, (response) => {
       if (response.Status === true) {
@@ -107,6 +139,8 @@ const onSubmitModal = async () => {
       ProductDetail: formModal.value.ProductDetail,
       ProductPrice: formModal.value.ProductPrice,
       ProductType: formModal.value.ProductType,
+      ProductPicsBase64: formModal.value.ProductPicsBase64,
+      Commission: formModal.value.Commission,
 
     };
     console.log(body)
@@ -256,25 +290,41 @@ watch(
       <form @submit.prevent="onSubmitModal">
         <div class="mt-3 mb-3">
           <div class="flex flex-wrap flex-row">
-            <div class="px-3 basis-1/5 mb-3">
+            <div class="px-3 basis-1/4 mb-3">
               <label class="label font-bold">รหัสสินค้า <span style="color: red">*</span></label>
               <input required v-model="formModal.ProductCode" placeholder="รหัสสินค้า" type="text"
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
             </div>
-            <div class="px-3 basis-2/5 mb-3">
+            <div class="px-3 basis-2/4 mb-3">
               <label class="label font-bold">ชื่อสินค้า <span style="color: red">*</span></label>
               <input required v-model="formModal.ProductName" placeholder="ชื่อสินค้า" type="text"
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
             </div>
-            <div class="px-3 basis-1/5 mb-3">
+            <div class="px-3 basis-1/4 mb-3">
               <label class="label font-bold">ประเภทสินค้า <span style="color: red">*</span></label>
               <input required v-model="formModal.ProductType" placeholder="ประเภทสินค้า" type="text"
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
             </div>
-            <div class="px-3 basis-1/5 mb-3">
+            <div class="px-3 basis-1/4 mb-3">
               <label class="label font-bold">ราคาสินค้า <span style="color: red">*</span></label>
               <input required v-model="formModal.ProductPrice" placeholder="ราคาสินค้า" type="text"
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
+            </div>
+            <div class="px-3 basis-1/4 mb-3">
+              <label class="label font-bold">ค่าคอมมิชชั่น <span style="color: red">*</span></label>
+              <input required v-model="formModal.Commission" placeholder="ราคาสินค้า" type="text"
+                class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
+            </div>
+            <div class="px-3 basis-2/4 mb-3">
+              <label class="label font-bold">รูปสินค้า <span style="color: red">*</span></label>
+              <input type="file" accept="image/*" @change="handleProductPics"
+                class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full bg-white py-2" />
+              <div v-if="formModal.ProductPicsBase64 && formModal.ProductPicsBase64.length > 0">
+                <img :src="formModal.ProductPicsBase64" alt="Preview" class="mt-2 w-full h-40 object-cover" />
+              </div>
+              <div v-else>
+                No image available.
+              </div>
             </div>
             <!-- <div class="px-3 basis-2/5 mb-3">
               <label class="label font-bold">วันที่เปิดทำการ <span style="color: red">*</span></label>

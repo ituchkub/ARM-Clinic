@@ -160,6 +160,37 @@
         }
       }
     },
+    "/Master/ProductStockList": {
+      "post": {
+        "tags": [
+          "Master"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MASProductStockRequestMessage"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MASProductStockRequestMessage"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MASProductStockRequestMessage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/Master/ServiceList": {
       "post": {
         "tags": [
@@ -180,6 +211,99 @@
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/MASServiceInfoRequestMessage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Master/BuyProductList": {
+      "post": {
+        "tags": [
+          "Master"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyProductListRequestMessage"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyProductListRequestMessage"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyProductListRequestMessage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Master/BuyServiceList": {
+      "post": {
+        "tags": [
+          "Master"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyServiceListRequestMessage"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyServiceListRequestMessage"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BuyServiceListRequestMessage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Master/UseServiceList": {
+      "post": {
+        "tags": [
+          "Master"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UseServiceRequestMessage"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UseServiceRequestMessage"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UseServiceRequestMessage"
               }
             }
           }
@@ -256,6 +380,123 @@
   },
   "components": {
     "schemas": {
+      "BuyProduct": {
+        "type": "object",
+        "properties": {
+          "BuyPID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "ProductID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "ProductQTY": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "UserID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "BuyDate": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BuyProductListRequestMessage": {
+        "type": "object",
+        "properties": {
+          "MessageId": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "TimeStamp": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "SessionEmpID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "body": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BuyProduct"
+            },
+            "nullable": true
+          },
+          "Module": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BuyService": {
+        "type": "object",
+        "properties": {
+          "BuySID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "ServiceID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "UserID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "BuyDate": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BuyServiceListRequestMessage": {
+        "type": "object",
+        "properties": {
+          "MessageId": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "TimeStamp": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "SessionEmpID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "body": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BuyService"
+            },
+            "nullable": true
+          },
+          "Module": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "MASBanchList": {
         "type": "object",
         "properties": {
@@ -495,6 +736,10 @@
           "ProductPicsBase64": {
             "type": "string",
             "nullable": true
+          },
+          "Commission": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -518,6 +763,57 @@
           },
           "body": {
             "$ref": "#/components/schemas/MASProductInfo"
+          },
+          "Module": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MASProductStock": {
+        "type": "object",
+        "properties": {
+          "ProductStockID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "ProductID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "Amount": {
+            "type": "string",
+            "nullable": true
+          },
+          "StockDate": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MASProductStockRequestMessage": {
+        "type": "object",
+        "properties": {
+          "MessageId": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "TimeStamp": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "SessionEmpID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "body": {
+            "$ref": "#/components/schemas/MASProductStock"
           },
           "Module": {
             "type": "string",
@@ -559,6 +855,14 @@
             "nullable": true
           },
           "ServicePicsBase64": {
+            "type": "string",
+            "nullable": true
+          },
+          "Commission": {
+            "type": "string",
+            "nullable": true
+          },
+          "Times": {
             "type": "string",
             "nullable": true
           }
@@ -621,6 +925,62 @@
           },
           "body": {
             "$ref": "#/components/schemas/M_DDL"
+          },
+          "Module": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UseService": {
+        "type": "object",
+        "properties": {
+          "UseSID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "BuySID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "UserID": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "UseDate": {
+            "type": "string",
+            "nullable": true
+          },
+          "UseDetail": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UseServiceRequestMessage": {
+        "type": "object",
+        "properties": {
+          "MessageId": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "TimeStamp": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "SessionEmpID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "body": {
+            "$ref": "#/components/schemas/UseService"
           },
           "Module": {
             "type": "string",

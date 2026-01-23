@@ -49,6 +49,38 @@
   },
   {
     "ContainingType": "ARM_Clinic_API.Controllers.MasterController",
+    "Method": "BuyProductList",
+    "RelativePath": "Master/BuyProductList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ARM_Clinic_API.Model.RequestMessage\u00601[[System.Collections.Generic.List\u00601[[ARM_Clinic_API.Model.BuyProduct, ARM_Clinic_API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ARM_Clinic_API.Controllers.MasterController",
+    "Method": "BuyServiceList",
+    "RelativePath": "Master/BuyServiceList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ARM_Clinic_API.Model.RequestMessage\u00601[[System.Collections.Generic.List\u00601[[ARM_Clinic_API.Model.BuyService, ARM_Clinic_API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ARM_Clinic_API.Controllers.MasterController",
     "Method": "CustomerList",
     "RelativePath": "Master/CustomerList",
     "HttpMethod": "POST",
@@ -113,6 +145,22 @@
   },
   {
     "ContainingType": "ARM_Clinic_API.Controllers.MasterController",
+    "Method": "ProductStockList",
+    "RelativePath": "Master/ProductStockList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ARM_Clinic_API.Model.RequestMessage\u00601[[ARM_Clinic_API.Model.MASProductStock, ARM_Clinic_API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ARM_Clinic_API.Controllers.MasterController",
     "Method": "ServiceList",
     "RelativePath": "Master/ServiceList",
     "HttpMethod": "POST",
@@ -122,6 +170,22 @@
       {
         "Name": "request",
         "Type": "ARM_Clinic_API.Model.RequestMessage\u00601[[ARM_Clinic_API.Model.MASServiceInfo, ARM_Clinic_API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ARM_Clinic_API.Controllers.MasterController",
+    "Method": "UseServiceList",
+    "RelativePath": "Master/UseServiceList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ARM_Clinic_API.Model.RequestMessage\u00601[[ARM_Clinic_API.Model.UseService, ARM_Clinic_API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "IsRequired": true
       }
     ],
