@@ -27,6 +27,15 @@ const formModalConfirm = ref({
   label: "",
 });
 
+const formatAmount = (value) => {
+  const num = value == null ? 0 : value
+  const hasDecimal = num % 1 !== 0
+  return num.toLocaleString('en-US', {
+    minimumFractionDigits: hasDecimal ? 2 : 0,
+    maximumFractionDigits: hasDecimal ? 2 : 0
+  })
+}
+
 const formModal = ref({
   ProductID: 0,
   ProductCode: "",
@@ -240,7 +249,7 @@ watch(
             <span class="font-bold">{{ row?.ProductName || "" }}</span>
           </td>
           <td>
-            <span class="font-bold">{{ row?.ProductPrice || "" }}</span>
+            <span class="font-bold">{{ formatAmount(row?.ProductPrice || "") }}</span>
           </td>
           <td>
             <div class="flex space-x-3">

@@ -3,6 +3,9 @@ import { inject, onMounted, ref, watch } from "vue";
 import _apiBranch from "../../../../api/branch.js";
 import modalConfirm from "../../../../components/modal-confirm.vue";
 import { getTokenStorage } from "../../../../helpers/storage.js";
+import thai_provinces from "../../../../assets/address/thai_provinces.json";
+import thai_amphures from "../../../../assets/address/thai_amphures.json";
+import thai_tambons from "../../../../assets/address/thai_tambons.json";
 import { useStore } from "vuex";
 const columns = [
   { label: "รหัสสาขา", size: "lg", width: "15%" },
@@ -23,6 +26,8 @@ const rowDelete = ref({
 const IsSuperAdmin = ref([]);
 const companyList = ref([]);
 const modalErrorLabel = ref("");
+const SelectedAmphures = ref([]);
+const SelectedTambons = ref([]);
 const formModalConfirm = ref({
   label: "",
 });
@@ -31,30 +36,93 @@ const formModal = ref({
   BanchID: 0,
   BanchCode: "",
   BanchName: "",
-  BanchDate: "",
+  BanchType: "",
+  BanchMobileNumber: "",
+  BanchAddress: "",
+  Tambons: "",
+  Amphures: "",
+  Province: "",
+  ZipCode: "",
+  BanchQRCode: "",
+  BanchDate: ""
 });
+
 
 const onClearModal = () => {
   formModal.value = {
     BanchID: 0,
     BanchCode: "",
     BanchName: "",
-    BanchDate: "",
+    BanchType: "",
+    BanchMobileNumber: "",
+    BanchAddress: "",
+    Tambons: "",
+    Amphures: "",
+    Province: "",
+    ZipCode: "",
+    BanchQRCode: "",
+    BanchDate: ""
   };
   modalErrorLabel.value = "";
 };
+
+
+
+async function handleProductPics(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const base64 = await convertToBase64(file);
+  formModal.value.BanchQRCode = base64;
+}
+
+function convertToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+    reader.readAsDataURL(file);
+  });
+}
+
+const handleSelectProvinceChange = () => {
+  const selectedId = formModal.value.Province;
+  SelectedAmphures.value = thai_amphures.filter(
+    (amphures) => amphures.province_id === parseInt(selectedId)
+  ).sort((a, b) => a.name_th.localeCompare(b.name_th));;
+}
+const handleSelectAmphuresChange = () => {
+  const selectedId = formModal.value.Amphures;
+  SelectedTambons.value = thai_tambons.filter(
+    (amphures) => amphures.amphure_id === parseInt(selectedId)
+  ).sort((a, b) => a.name_th.localeCompare(b.name_th));;
+}
+const handleSelectTambonsChange = () => {
+  const selectedId = formModal.value.Tambons;
+  const ZipCode = thai_tambons.filter(
+    (amphures) => amphures.id === parseInt(selectedId)
+  ).sort((a, b) => a.name_th.localeCompare(b.name_th));;
+  formModal.value.ZipCode = ZipCode[0].zip_code;
+}
+
 const onOpenModal = (val, row) => {
   if (val === "add") {
     onClearModal();
   } else {
     modalErrorLabel.value = "";
-    formModal.value = {
-      BanchID: row.BanchID,
-      BanchCode: row.BanchCode,
-      BanchName: row.BanchName,
-      BanchDate: row.BanchDate,
-    };
-    // formModal.value = row
+
+    const selectedIdA = row.Province;
+    SelectedAmphures.value = thai_amphures.filter(
+      (amphures) => amphures.province_id === parseInt(selectedIdA)
+    );
+
+    const selectedIdB = row.Amphures;
+    SelectedTambons.value = thai_tambons.filter(
+      (amphures) => amphures.amphure_id === parseInt(selectedIdB)
+    );
+
+
+    formModal.value = row
   }
   stateModal.value = val;
   document.getElementById("modal-manager").showModal();
@@ -64,24 +132,14 @@ const onCloseModal = () => {
 };
 const onSubmitModal = async () => {
   if (stateModal.value == "add") {
-    // const checkData = rowsOriginal.value.filter((item) => {
-    //   return (
-    //     item.CompanyCode == formModal.value.EmpCode &&
-    //     item.PMEmail == formModal.value.EmpCode
-    //   );
-    // });
-    // if (checkData.length > 0) {
-    //   modalErrorLabel.value = "Email already exist";
-    // } else {
-    // const body = {
-    //     ...formModal.value,
-    // }
     const body = {
-      BanchID: formModal.value.BanchID,
-      BanchCode: formModal.value.BanchCode,
-      BanchName: formModal.value.BanchName,
-      BanchDate: formModal.value.BanchDate,
-    };
+      ...Object.fromEntries(
+        Object.entries(formModal.value).map(([key, value]) => [
+          key,
+          value === null ? null : String(value),
+        ])
+      ),
+    }
     await _apiBranch.create(body, (response) => {
       if (response.Status === true) {
         document.getElementById("modal-manager").close();
@@ -93,12 +151,13 @@ const onSubmitModal = async () => {
     // }
   } else {
     const body = {
-      BanchID: formModal.value.BanchID,
-      BanchCode: formModal.value.BanchCode,
-      BanchName: formModal.value.BanchName,
-      BanchDate: formModal.value.BanchDate,
-
-    };
+      ...Object.fromEntries(
+        Object.entries(formModal.value).map(([key, value]) => [
+          key,
+          value === null ? null : String(value),
+        ])
+      ),
+    }
     console.log(body)
     await _apiBranch.update(body, (response) => {
       if (response.Status === true) {
@@ -115,6 +174,23 @@ const onLoadData = async () => {
   await _apiBranch.getList(
     { CompanyCode: IsSuperAdmin.value ? "" : sessionInfo.CompanyCode },
     (response) => {
+
+      response.body.forEach(store => {
+        store.provinceNameTh =
+          thai_provinces.find(p => p.id === Number(store.Province))?.name_th || "";
+      });
+
+      response.body.forEach(store => {
+        store.amphuresNameTh =
+          thai_amphures.find(p => p.id === Number(store.Amphures))?.name_th || "";
+      });
+
+      response.body.forEach(store => {
+        store.tambonsNameTh =
+          thai_tambons.find(p => p.id === Number(store.Tambons))?.name_th || "";
+      });
+
+
       rows.value = response.body;
       rows.value.map((item) => {
         item.RoleID = item.RoleID?.split(",");
@@ -262,7 +338,72 @@ watch(
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
             </div> -->
 
-
+            <div class="px-3 basis-1/4 mb-3">
+              <label class="label font-bold">ที่อยู่ <span style="color: red">*</span></label>
+              <input required v-model="formModal.BanchAddress" placeholder="เลขที่" type="text"
+                class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
+            </div>
+            <div class="px-3 basis-1/4 mb-3">
+              <label class="label font-bold">จังหวัด <span style="color: red">*</span></label>
+              <select required class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full"
+                v-model="formModal.Province" @change="handleSelectProvinceChange">
+                <option value="" disabled selected hidden>เลือกจังหวัด</option>
+                <option v-for="province in thai_provinces" :key="province.id" :value="province.id">
+                  {{ province.name_th }}
+                </option>
+              </select>
+            </div>
+            <div class="px-3 basis-1/4 mb-3">
+              <label class="label font-bold">อำเภอ <span style="color: red">*</span></label>
+              <select required class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full"
+                v-model="formModal.Amphures" @change="handleSelectAmphuresChange">
+                <option value="" disabled selected hidden>เลือกอำเภอ</option>
+                <option v-for="amphure in SelectedAmphures" :key="amphure.id" :value="amphure.id">
+                  {{ amphure.name_th }}
+                </option>
+              </select>
+            </div>
+            <div class="px-3 basis-1/4 mb-3">
+              <label class="label font-bold">ตำบล <span style="color: red">*</span></label>
+              <select required class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full"
+                v-model="formModal.Tambons" @change="handleSelectTambonsChange">
+                <option value="" disabled selected hidden>เลือกตำบล</option>
+                <option v-for="province in SelectedTambons" :key="province.id" :value="province.id">
+                  {{ province.name_th }}
+                </option>
+              </select>
+            </div>
+            <div class="px-3 basis-1/4 mb-3">
+              <label class="label font-bold">รหัสไปรษณีย์ <span style="color: red">*</span></label>
+              <input required v-model="formModal.ZipCode" placeholder="รหัสไปรษณีย์" type="text"
+                class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
+            </div>
+            <div class="px-3 basis-1/4 mb-3">
+              <label class="label font-bold">เบอร์ติดต่อ <span style="color: red">*</span></label>
+              <input required v-model="formModal.BanchMobileNumber" placeholder="เบอร์ติดต่อ" type="text"
+                class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
+            </div>
+            <div class="px-3 basis-2/4 mb-3">
+              <label class="label font-bold">อีเมล</label>
+              <input v-model="formModal.BanchEmail" placeholder="อีเมล" type="text"
+                class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
+            </div>
+            <div class="px-3 basis-1/2 mb-3">
+              <label class="label font-bold">เลขที่ผู้เสียภาษี </label>
+              <input v-model="formModal.BanchTaxID" placeholder="เลขที่ผู้เสียภาษี" type="text"
+                class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
+            </div>
+            <div class="px-3 basis-2/4 mb-3">
+              <label class="label font-bold">QRCode <span style="color: red">*</span></label>
+              <input type="file" accept="image/*" @change="handleProductPics"
+                class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full bg-white py-2" />
+              <div v-if="formModal.BanchQRCode && formModal.BanchQRCode.length > 0">
+                <img :src="formModal.BanchQRCode" alt="Preview" class="mt-2 w-full h-40 object-cover" />
+              </div>
+              <div v-else>
+                No image available.
+              </div>
+            </div>
           </div>
           <div class="flex justify-between mt-10">
             <div>

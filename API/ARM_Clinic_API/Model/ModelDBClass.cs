@@ -6,7 +6,17 @@
         public int? BanchID { get; set; }
         public string? BanchCode { get; set; }
         public string? BanchName { get; set; }
+        public string? BanchType { get; set; }
+        public string? BanchMobileNumber { get; set; }
+        public string? BanchAddress { get; set; }
+        public string? Tambons { get; set; }
+        public string? Amphures { get; set; }
+        public string? Province { get; set; }
+        public string? ZipCode { get; set; }
+        public string? BanchQRCode { get; set; }
         public string? BanchDate { get; set; }
+        public string? BanchTaxID { get; set; }
+        public string? BanchEmail { get; set; }
     }
 
 
