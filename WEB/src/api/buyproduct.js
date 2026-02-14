@@ -25,6 +25,9 @@ const postRequest = (module, params, success, error) => {
     });
 };
 export default {
+  getBillList(params, success, error) {
+    postRequest("getBillList", params, success, error);
+  },
   getList(params, success, error) {
     postRequest("getlist", params, success, error);
   },

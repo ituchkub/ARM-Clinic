@@ -5,11 +5,12 @@ import modalConfirm from "../../../../components/modal-confirm.vue";
 import { getTokenStorage } from "../../../../helpers/storage.js";
 import { useStore } from "vuex";
 const columns = [
-  { label: "รหัสคอร์สความงาม", size: "lg", width: "25%" },
-  { label: "ชื่อคอร์สความงาม", size: "lg", width: "25%" },
-  { label: "ราคาคอร์สความงาม", size: "lg", width: "25%" },
-  { label: "จำนวน", size: "lg", width: "25%" },
+  { label: "รหัสรายการ", size: "lg", width: "35%" },
+  // { label: "ชื่อสินค้า", size: "lg", width: "25%" },
+  // { label: "ราคาสินค้า", size: "lg", width: "25%" },
+  // { label: "จำนวน", size: "lg", width: "25%" },
   { label: "ราคารวม", size: "lg", width: "25%" },
+  { label: "ชื่อลูกค้า", size: "lg", width: "25%" },
   { label: "", size: "lg", width: "10%" },
 ];
 const $store = useStore()
@@ -86,8 +87,8 @@ const onSubmitModal = async () => {
 const onLoadData = async () => {
 
 
-  await _apiBuyService.getList(
-    [{}],
+  await _apiBuyService.getBillList(
+    [{ BanchID: getTokenStorage().sestionInfo.BanchID },],
     (response) => {
       rows.value = response.body;
       console.log(response.body)
@@ -156,22 +157,22 @@ watch(
 
           <td>
             <span class="font-bold">{{
-              `${row?.Prefix || ""} ${row?.ServiceCode || ""
+              `${row?.Prefix || ""} ${row?.BillUID || ""
               }`
             }}</span>
           </td>
+          <!-- <td>
+            <span class="font-bold">{{ row?.ProductName || "" }}</span>
+          </td> -->
           <td>
-            <span class="font-bold">{{ row?.ServiceName || "" }}</span>
+            <span class="font-bold">{{ row?.SumServicePrice || "" }}</span>
           </td>
           <td>
-            <span class="font-bold">{{ row?.ServicePrice || "" }}</span>
+            <span class="font-bold">คุณ{{ row?.Name + " " + row?.Surname || "" }}</span>
           </td>
-          <td>
-            <span class="font-bold">1</span>
-          </td>
-          <td>
-            <span class="font-bold">{{ 1 * row?.ServicePrice  || "" }}</span>
-          </td>
+          <!-- <td>
+            <span class="font-bold">{{ row?.ProductQTY * row?.ProductPrice || "" }}</span>
+          </td> -->
           <td>
             <div class="flex space-x-3">
               <!-- <button @click="onOpenModal('edit', row)"

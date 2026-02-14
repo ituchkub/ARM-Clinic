@@ -19,6 +19,7 @@ const sessionInfo = getTokenStorage().sestionInfo;
 const rows = ref([]);
 // const rowsOriginal = ref([]);
 const rowsCustomer = ref([]);
+const BillUID = ref("");
 const rowsService = ref([]);
 const stateModal = ref("add");
 const searchCustomer = ref("");
@@ -134,6 +135,8 @@ const onSubmitModal = async () => {
   if (stateModal.value == "add") {
     const body = rows.value.map(item => ({
       BuyPID: 0,
+      BanchID: getTokenStorage().sestionInfo.BanchID,
+      BillUID: BillUID.value,
       ServiceID: item.ServiceID,
       ServiceQTY: item.Qty,
       UserID: selectedCustomer.value.CusID,
@@ -155,7 +158,7 @@ const onSubmitModal = async () => {
 
 };
 const onLoadData = async () => {
-
+  BillUID.value = crypto.randomUUID();
   await _apiCustomer.getList(
     { CompanyCode: IsSuperAdmin.value ? "" : sessionInfo.CompanyCode },
     (response) => {
@@ -222,10 +225,10 @@ watch(
 </script>
 <template>
   <div class="flex justify-end space-x-2">
-    <input class="bg-gray-200  px-8 py-2" placeholder="เบอร์โทรลูกค้า" v-model="searchCustomer" @keyup.enter="onCusEnter"
-      :disabled="selectedCustomer" />
-    <input class="bg-gray-200 px-8 py-2" placeholder="รหัสคอร์สความงาม" v-model="searchService" :disabled="!selectedCustomer"
-      @keyup.enter="onServiceEnter" />
+    <input class="bg-gray-200  px-8 py-2" placeholder="เบอร์โทรลูกค้า" v-model="searchCustomer"
+      @keyup.enter="onCusEnter" :disabled="selectedCustomer" />
+    <input class="bg-gray-200 px-8 py-2" placeholder="รหัสคอร์สความงาม" v-model="searchService"
+      :disabled="!selectedCustomer" @keyup.enter="onServiceEnter" />
     <button class="rounded-full px-8 py-2 bg-custom-blue hover:bg-amber-600t" @click="onOpenModal('add')">
       <div class="flex items-center space-x-2">
         <span class="text-white font-bold">

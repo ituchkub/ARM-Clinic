@@ -53,6 +53,8 @@
     public class BuyProduct
     {
         public int? BuyPID { get; set; }
+        public string? BillUID { get; set; }
+        public int? BanchID { get; set; }
         public int? ProductID { get; set; }        
         public int? ProductQTY { get; set; }
         public int? UserID { get; set; }
@@ -101,14 +103,12 @@
     public class BuyService
     {
         public int? BuySID { get; set; }
+        public string? BillUID { get; set; }
+        public int? BanchID { get; set; }
         public int? ServiceID { get; set; }
         public int? UserID { get; set; }
         public string? BuyDate { get; set; }
     }
-
-
-
-
 
     public class MASProductInfo
     {

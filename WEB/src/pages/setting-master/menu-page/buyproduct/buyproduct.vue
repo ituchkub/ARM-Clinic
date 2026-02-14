@@ -22,6 +22,7 @@ const rowsCustomer = ref([]);
 const rowsProduct = ref([]);
 const stateModal = ref("add");
 const searchCustomer = ref("");
+const BillUID = ref("");
 const selectedCustomer = ref(null)
 const searchProduct = ref("");
 const rowDelete = ref({
@@ -134,15 +135,14 @@ const onSubmitModal = async () => {
   if (stateModal.value == "add") {
     const body = rows.value.map(item => ({
       BuyPID: 0,
+      BanchID: getTokenStorage().sestionInfo.BanchID,
+      BillUID: BillUID.value,
       ProductID: item.ProductID,
       ProductQTY: item.Qty,
       UserID: selectedCustomer.value.CusID,
       BuyDate: new Date().toISOString()
     }))
 
-    // const body = {
-
-    // };
     await _apiBuyProduct.create(body, (response) => {
       if (response.Status === true) {
         document.getElementById("modal-manager").close();
@@ -152,9 +152,12 @@ const onSubmitModal = async () => {
       }
     });
   }
-
 };
+
+
 const onLoadData = async () => {
+
+  BillUID.value = crypto.randomUUID();
 
   await _apiCustomer.getList(
     { CompanyCode: IsSuperAdmin.value ? "" : sessionInfo.CompanyCode },
@@ -222,8 +225,8 @@ watch(
 </script>
 <template>
   <div class="flex justify-end space-x-2">
-    <input class="bg-gray-200  px-8 py-2" placeholder="เบอร์โทรลูกค้า" v-model="searchCustomer" @keyup.enter="onCusEnter"
-      :disabled="selectedCustomer" />
+    <input class="bg-gray-200  px-8 py-2" placeholder="เบอร์โทรลูกค้า" v-model="searchCustomer"
+      @keyup.enter="onCusEnter" :disabled="selectedCustomer" />
     <input class="bg-gray-200 px-8 py-2" placeholder="รหัสสินค้า" v-model="searchProduct" :disabled="!selectedCustomer"
       @keyup.enter="onProductEnter" />
     <button class="rounded-full px-8 py-2 bg-custom-blue hover:bg-amber-600t" @click="onOpenModal('add')">

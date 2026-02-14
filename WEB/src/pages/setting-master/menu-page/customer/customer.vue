@@ -135,7 +135,7 @@ const onLoadData = async () => {
 
 
   await _apiCustomer.getList(
-    { CompanyCode: IsSuperAdmin.value ? "" : sessionInfo.CompanyCode },
+    { BanchID: getTokenStorage().sestionInfo.BanchID},
     (response) => {
       rows.value = response.body;
       rows.value.map((item) => {
