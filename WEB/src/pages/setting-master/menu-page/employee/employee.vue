@@ -71,7 +71,7 @@ const onOpenModal = (val, row) => {
     modalErrorLabel.value = "";
     formModal.value = {
       EmpID: row.EmpID,
-      BanchID: row.BanchID,
+      BanchID: getTokenStorage().sestionInfo.BanchID,
       EmpCode: row.EmpCode,
       Prefix: row.Prefix,
       Name: row.Name,
@@ -95,7 +95,7 @@ const onSubmitModal = async () => {
   if (stateModal.value == "add") {
     const body = {
       EmpID: formModal.value.EmpID,
-      BanchID: formModal.value.BanchID,
+      BanchID: getTokenStorage().sestionInfo.BanchID,
       EmpCode: formModal.value.EmpCode,
       Prefix: formModal.value.Prefix,
       Name: formModal.value.Name,
@@ -120,7 +120,7 @@ const onSubmitModal = async () => {
   } else {
     const body = {
       EmpID: formModal.value.EmpID,
-      BanchID: formModal.value.BanchID,
+      BanchID: getTokenStorage().sestionInfo.BanchID,
       EmpCode: formModal.value.EmpCode,
       Prefix: formModal.value.Prefix,
       Name: formModal.value.Name,
@@ -147,7 +147,6 @@ const onSubmitModal = async () => {
 
 };
 const onLoadData = async () => {
-
   await _apiDDL.DDLBarchList(
     {},
     (response) => {
@@ -177,7 +176,7 @@ const onClickDelete = (row, index) => {
   document.getElementById("modal-confirm").showModal();
 };
 const onEmitValueConfirm = () => {
-  const body = { BanchID: rowDelete.value.row.BanchID };
+  const body = { EmpID: rowDelete.value.row.EmpID };
   _apiEmployee.delete(body, (response) => {
     rows.value.splice(rowDelete.value.index, 1);
     document.getElementById("modal-confirm").close();
@@ -307,11 +306,8 @@ watch(
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
             </div>
 
-            <div class="px-3 basis-2/6 mb-3">
+            <!-- <div class="px-3 basis-2/6 mb-3">
               <label class="label font-bold">สาขา <span style="color: red">*</span></label>
-              <!-- <input required v-model="formModal.BanchID" placeholder="สาขา" type="text"
-                class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" /> -->
-
               <select required class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full"
                 v-model="formModal.BanchID">
                 <option value="" disabled selected hidden>เลือกสาขา</option>
@@ -319,14 +315,14 @@ watch(
                   {{ items.Name }}
                 </option>
               </select>
+            </div> -->
 
-            </div>
             <div class="px-3 basis-2/6 mb-3">
               <label class="label font-bold">เบอร์ติดต่อ <span style="color: red">*</span></label>
               <input required v-model="formModal.Telephone" placeholder="เบอร์ติดต่อ" type="text"
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
             </div>
-            <div class="px-3 basis-2/6 mb-3">
+            <div class="px-3 basis-4/6 mb-3">
               <label class="label font-bold">E-Mail<span style="color: red">*</span></label>
               <input required v-model="formModal.Email" placeholder="E-Mail" type="text"
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />

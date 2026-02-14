@@ -82,7 +82,7 @@ const onCloseModal = () => {
 
 const onCusEnter = async () => {
   const customer = rowsCustomer.value.find(
-    c => c.CusCode?.toUpperCase() === searchCustomer.value?.toUpperCase()
+    c => c.Telephone?.toUpperCase() === searchCustomer.value?.toUpperCase()
 
   )
 
@@ -222,7 +222,7 @@ watch(
 </script>
 <template>
   <div class="flex justify-end space-x-2">
-    <input class="bg-gray-200  px-8 py-2" placeholder="รหัสลุกค้า" v-model="searchCustomer" @keyup.enter="onCusEnter"
+    <input class="bg-gray-200  px-8 py-2" placeholder="เบอร์โทรลูกค้า" v-model="searchCustomer" @keyup.enter="onCusEnter"
       :disabled="selectedCustomer" />
     <input class="bg-gray-200 px-8 py-2" placeholder="รหัสสินค้า" v-model="searchProduct" :disabled="!selectedCustomer"
       @keyup.enter="onProductEnter" />

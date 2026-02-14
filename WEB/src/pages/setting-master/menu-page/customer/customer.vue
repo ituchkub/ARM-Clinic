@@ -67,7 +67,7 @@ const onOpenModal = (val, row) => {
       Name: row.Name,
       Surname: row.Surname,
       Telephone: row.Telephone,
-      BanchID: row.BanchID,
+      BanchID: getTokenStorage().sestionInfo.BanchID,
       Email: row.Email,
     };
     // formModal.value = row
@@ -88,7 +88,7 @@ const onSubmitModal = async () => {
       Name: formModal.value.Name,
       Surname: formModal.value.Surname,
       Telephone: formModal.value.Telephone,
-      BanchID: formModal.value.BanchID,
+      BanchID: getTokenStorage().sestionInfo.BanchID,
       Email: formModal.value.Email,
     };
     await _apiCustomer.create(body, (response) => {
@@ -107,7 +107,7 @@ const onSubmitModal = async () => {
       Name: formModal.value.Name,
       Surname: formModal.value.Surname,
       Telephone: formModal.value.Telephone,
-      BanchID: formModal.value.BanchID,
+      BanchID: getTokenStorage().sestionInfo.BanchID,
       Email: formModal.value.Email,
 
     };
@@ -284,10 +284,9 @@ watch(
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
             </div>
 
-            <div class="px-3 basis-2/6 mb-3">
+            <!-- <div class="px-3 basis-2/6 mb-3">
               <label class="label font-bold">สาขา <span style="color: red">*</span></label>
-              <!-- <input required v-model="formModal.BanchID" placeholder="สาขา" type="text"
-                class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" /> -->
+           
 
               <select required class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full"
                 v-model="formModal.BanchID">
@@ -297,13 +296,13 @@ watch(
                 </option>
               </select>
 
-            </div>
+            </div> -->
             <div class="px-3 basis-2/6 mb-3">
               <label class="label font-bold">เบอร์ติดต่อ <span style="color: red">*</span></label>
               <input required v-model="formModal.Telephone" placeholder="เบอร์ติดต่อ" type="text"
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
             </div>
-            <div class="px-3 basis-2/6 mb-3">
+            <div class="px-3 basis-4/6 mb-3">
               <label class="label font-bold">E-Mail<span style="color: red">*</span></label>
               <input required v-model="formModal.Email" placeholder="E-Mail" type="text"
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />

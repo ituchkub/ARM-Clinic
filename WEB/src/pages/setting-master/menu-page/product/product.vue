@@ -61,16 +61,12 @@ const onClearModal = () => {
   modalErrorLabel.value = "";
 };
 
-
 async function handleProductPics(event) {
   const file = event.target.files[0];
   if (!file) return;
 
   const base64 = await convertToBase64(file);
   formModal.value.ProductPicsBase64 = base64;
-
-
-
 }
 
 
@@ -82,7 +78,6 @@ function convertToBase64(file) {
     reader.readAsDataURL(file);
   });
 }
-
 
 const onOpenModal = (val, row) => {
   if (val === "add") {

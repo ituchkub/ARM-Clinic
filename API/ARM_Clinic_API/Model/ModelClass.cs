@@ -57,20 +57,21 @@
         public string Telephone { get; set; }
         public string RoleId { get; set; }
         public string Email { get; set; }
-        public UserProfileResponse()
-        {
+        public string BanchID { get; set; }
+        //public UserProfileResponse()
+        //{
 
-        }
-        public UserProfileResponse(int Id, string Name, string Surename, string Fname, string Telephone, string RoleId, string Email)
-        {
-            this.Id = Id;
-            this.Name = Name;
-            this.Fname = Fname;
-            this.Surname = Surname;
-            this.Telephone = Telephone;
-            this.RoleId = RoleId.Substring(1);
-            this.Email = Email;
-        }
+        //}
+        //public UserProfileResponse(int Id, string Name, string Surename, string Fname, string Telephone, string RoleId, string Email)
+        //{
+        //    this.Id = Id;
+        //    this.Name = Name;
+        //    this.Fname = Fname;
+        //    this.Surname = Surname;
+        //    this.Telephone = Telephone;
+        //    this.RoleId = RoleId.Substring(1);
+        //    this.Email = Email;
+        //}
     }
     public class UserAuthen
     {
