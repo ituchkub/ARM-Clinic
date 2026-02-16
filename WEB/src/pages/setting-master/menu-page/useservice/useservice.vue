@@ -92,19 +92,13 @@ const onCusEnter = async () => {
   }
 }
 
-const onServiceSelect = async () => {git
+const onServiceSelect = async () => {
   console.log(serviceSelect.value)
 
 
 
 
-  await _apiUseService.getList(
-    { BuySID: serviceSelect.value },
-    (response) => {
-      rows.value = response.body;
-      console.log(response.body)
-    }
-  )
+  onLoadUserService()
 
 
 
@@ -125,7 +119,7 @@ const onSubmitModal = async () => {
     }, (response) => {
       if (response.Status === true) {
         document.getElementById("modal-manager").close();
-        onLoadData();
+        onLoadUserService()
       } else {
         console.log("error : ", response.ErrorMessage);
       }
@@ -133,6 +127,23 @@ const onSubmitModal = async () => {
   }
 
 };
+
+
+const onLoadUserService = async () => {
+
+
+  await _apiUseService.getList(
+    { BuySID: serviceSelect.value, UserID: selectedCustomer.value.CusID, },
+    (response) => {
+      rows.value = response.body;
+      console.log(response.body)
+    }
+  )
+}
+
+
+
+
 const onLoadData = async () => {
 
   await _apiCustomer.getList(
@@ -167,11 +178,11 @@ const onClickDelete = (row, index) => {
   document.getElementById("modal-confirm").showModal();
 };
 const onEmitValueConfirm = () => {
-  const body = { ServiceID: rowDelete.value.row.ServiceID };
-  // _apiService.delete(body, (response) => {
-  //   rows.value.splice(rowDelete.value.index, 1);
-  //   document.getElementById("modal-confirm").close();
-  // });
+  const body = { UseSID: rowDelete.value.row.UseSID };
+  _apiUseService.delete(body, (response) => {
+    rows.value.splice(rowDelete.value.index, 1);
+    document.getElementById("modal-confirm").close();
+  });
 };
 onMounted(async () => {
   companyList.value = inject("config").companyLoginList;
@@ -201,8 +212,8 @@ watch(
 </script>
 <template>
   <div class="flex justify-end space-x-2">
-    <input class="bg-gray-200  px-8 py-2" placeholder="เบอร์โทรลูกค้า" v-model="searchCustomer" @keyup.enter="onCusEnter"
-      :disabled="selectedCustomer" />
+    <input class="bg-gray-200  px-8 py-2" placeholder="เบอร์โทรลูกค้า" v-model="searchCustomer"
+      @keyup.enter="onCusEnter" :disabled="selectedCustomer" />
     <!-- <input class="bg-gray-200 px-8 py-2" placeholder="รหัสคอร์สความงาม" v-model="searchService" :disabled="!selectedCustomer"
       @keyup.enter="onServiceSelect" /> -->
 
