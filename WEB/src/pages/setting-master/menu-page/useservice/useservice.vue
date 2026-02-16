@@ -9,8 +9,8 @@ import { getTokenStorage } from "../../../../helpers/storage.js";
 import { useStore } from "vuex";
 const columns = [
   { label: "ลำดับ", size: "lg", width: "15%" },
-  { label: "ชื่อคอร์สความงาม", size: "lg", width: "25%" },
-  { label: "รายละเอียดการคอร์สความงาม", size: "lg", width: "60%" },
+  { label: "ชื่อคอร์ส ผิวใสไร้ฝ้ากระ", size: "lg", width: "25%" },
+  { label: "รายละเอียดการคอร์ส ผิวใสไร้ฝ้ากระ", size: "lg", width: "60%" },
   // { label: "จำนวน", size: "lg", width: "25%" },
   // { label: "ราคารวม", size: "lg", width: "25%" },
   { label: "", size: "lg", width: "10%" },
@@ -80,7 +80,7 @@ const onCusEnter = async () => {
     searchCustomer.value = customer.Name
     selectedCustomer.value = customer
 
-    await _apiBuyService.getList(
+    await _apiBuyService.getlistWithUseTime(
       [{ UserID: customer.CusID }],
       (response) => {
         searchService.value = response.body;
@@ -94,24 +94,15 @@ const onCusEnter = async () => {
 
 const onServiceSelect = async () => {
   console.log(serviceSelect.value)
-
-
-
-
   onLoadUserService()
-
-
-
-
 }
-
 
 const onSubmitModal = async () => {
   if (stateModal.value == "add") {
 
-    // const body = {
-    // };
-
+    var Items = searchService.value.find(p => p.BuySID === serviceSelect.value)
+    Items.ServiceCOUNT += 1
+    // console.log("Items", Items)
     await _apiUseService.create({
       BuySID: serviceSelect.value,
       UserID: selectedCustomer.value.CusID,
@@ -214,14 +205,14 @@ watch(
   <div class="flex justify-end space-x-2">
     <input class="bg-gray-200  px-8 py-2" placeholder="เบอร์โทรลูกค้า" v-model="searchCustomer"
       @keyup.enter="onCusEnter" :disabled="selectedCustomer" />
-    <!-- <input class="bg-gray-200 px-8 py-2" placeholder="รหัสคอร์สความงาม" v-model="searchService" :disabled="!selectedCustomer"
+    <!-- <input class="bg-gray-200 px-8 py-2" placeholder="รหัสคอร์ส ผิวใสไร้ฝ้ากระ" v-model="searchService" :disabled="!selectedCustomer"
       @keyup.enter="onServiceSelect" /> -->
 
     <select required class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-72" v-model="serviceSelect"
       :disabled="!selectedCustomer" @change="onServiceSelect">
       <option value="0" disabled hidden>เลือกสินค้า</option>
       <option v-for="items in searchService" :key="items.BuySID" :value="items.BuySID">
-        {{ items.ServiceName }}
+        {{ items.ServiceName + ' (' + items.ServiceCOUNT + '/' + items.Times + ')' }}
       </option>
     </select>
 
@@ -304,7 +295,7 @@ watch(
             fill="#48A23F" />
         </svg> -->
         <span class="font-bold text-xl">{{
-          stateModal == "add" ? "รายละเอียดการให้คอร์สความงาม" : ""
+          stateModal == "add" ? "รายละเอียดการให้คอร์ส ผิวใสไร้ฝ้ากระ" : ""
         }}</span>
       </div>
       <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" @click="onCloseModal">

@@ -58,6 +58,8 @@
         public string RoleId { get; set; }
         public string Email { get; set; }
         public string BanchID { get; set; }
+        public string BanchQRCode { get; set; }
+
         //public UserProfileResponse()
         //{
 

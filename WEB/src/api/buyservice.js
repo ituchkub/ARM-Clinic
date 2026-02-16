@@ -24,9 +24,12 @@ const postRequest = (module, params, success, error) => {
       if (error) error(err.response?.data || err.message);
     });
 };
-export default {  
+export default {
   getBillList(params, success, error) {
     postRequest("getBillList", params, success, error);
+  },
+  getlistWithUseTime(params, success, error) {
+    postRequest("getlistWithUseTime", params, success, error);
   },
   getList(params, success, error) {
     postRequest("getlist", params, success, error);

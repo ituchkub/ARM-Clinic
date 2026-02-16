@@ -74,10 +74,10 @@ var menuListMainSummarize = [
 
 var menuListMainService = [
     { menuName: "ซื้อสินค้า", Type: "3" },
-    { menuName: "ซื้อคอร์สความงาม", Type: "3" },
+    { menuName: "ซื้อคอร์ส ผิวใสไร้ฝ้ากระ", Type: "3" },
     { menuName: "ประวัติการซื้อสินค้า", Type: "3" },
-    { menuName: "ประวัติการซื้อคอร์สความงาม", Type: "3" },
-    { menuName: "ใช้คอร์สความงาม", Type: "3" },
+    { menuName: "ประวัติการซื้อคอร์ส ผิวใสไร้ฝ้ากระ", Type: "3" },
+    { menuName: "ใช้คอร์ส ผิวใสไร้ฝ้ากระ", Type: "3" },
 ]
 
 
@@ -89,7 +89,7 @@ var menuListMain = [
     { menuName: "พนักงาน", Type: "5" },
     { menuName: "ลูกค้า", Type: "5" },
     { menuName: "สินค้า", Type: "5" },
-    { menuName: "คอร์สความงาม", Type: "5" },
+    { menuName: "คอร์ส ผิวใสไร้ฝ้ากระ", Type: "5" },
 ]
 
 
@@ -401,16 +401,16 @@ onMounted(async () => {
                 <product v-if="menuOpen === 'สินค้า'" />
                 <productStock v-if="menuOpen === 'คลังสินค้า'" />
                 <sumProductStock v-if="menuOpen === 'สรุปยอดคลังสินค้า'" />
-                <service v-if="menuOpen === 'คอร์สความงาม'" />
+                <service v-if="menuOpen === 'คอร์ส ผิวใสไร้ฝ้ากระ'" />
 
                 <buyproduct v-if="menuOpen === 'ซื้อสินค้า'" />
-                <buyservice v-if="menuOpen === 'ซื้อคอร์สความงาม'" />
+                <buyservice v-if="menuOpen === 'ซื้อคอร์ส ผิวใสไร้ฝ้ากระ'" />
 
                 <logbuyproduct v-if="menuOpen === 'ประวัติการซื้อสินค้า'" />
-                <logbuyservice v-if="menuOpen === 'ประวัติการซื้อคอร์สความงาม'" />
+                <logbuyservice v-if="menuOpen === 'ประวัติการซื้อคอร์ส ผิวใสไร้ฝ้ากระ'" />
 
 
-                <useservice v-if="menuOpen === 'ใช้คอร์สความงาม'" />
+                <useservice v-if="menuOpen === 'ใช้คอร์ส ผิวใสไร้ฝ้ากระ'" />
 
 
             </div>

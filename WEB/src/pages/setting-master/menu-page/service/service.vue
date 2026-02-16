@@ -5,10 +5,10 @@ import modalConfirm from "../../../../components/modal-confirm.vue";
 import { getTokenStorage } from "../../../../helpers/storage.js";
 import { useStore } from "vuex";
 const columns = [
-  { label: "รหัสคอร์สความงาม", size: "lg", width: "25%" },
-  { label: "ชื่อคอร์สความงาม", size: "lg", width: "25%" },
+  { label: "รหัสคอร์ส ผิวใสไร้ฝ้ากระ", size: "lg", width: "25%" },
+  { label: "ชื่อคอร์ส ผิวใสไร้ฝ้ากระ", size: "lg", width: "25%" },
   { label: "จำนวนครั้ง", size: "lg", width: "25%" },
-  { label: "ราคาคอร์สความงาม", size: "lg", width: "25%" },
+  { label: "ราคาคอร์ส ผิวใสไร้ฝ้ากระ", size: "lg", width: "25%" },
   { label: "", size: "lg", width: "5%" },
 ];
 const $store = useStore()
@@ -188,7 +188,7 @@ watch(
         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6.5 8.5H0.5V6.5H6.5V0.5H8.5V6.5H14.5V8.5H8.5V14.5H6.5V8.5Z" fill="white" />
         </svg>
-        <span class="text-white font-bold">เพิ่มข้อมูลคอร์สความงาม</span>
+        <span class="text-white font-bold">เพิ่มข้อมูลคอร์ส ผิวใสไร้ฝ้ากระ</span>
       </div>
     </button>
   </div>
@@ -261,7 +261,7 @@ watch(
             fill="#48A23F" />
         </svg>
         <span class="font-bold text-xl">{{
-          stateModal == "add" ? "เพิ่มข้อมูลคอร์สความงาม" : "แก้ไขข้อมูลคอร์สความงาม"
+          stateModal == "add" ? "เพิ่มข้อมูลคอร์ส ผิวใสไร้ฝ้ากระ" : "แก้ไขข้อมูลคอร์ส ผิวใสไร้ฝ้ากระ"
         }}</span>
       </div>
       <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" @click="onCloseModal">
@@ -271,18 +271,18 @@ watch(
         <div class="mt-3 mb-3">
           <div class="flex flex-wrap flex-row">
             <div class="px-3 basis-1/4 mb-3">
-              <label class="label font-bold">รหัสคอร์สความงาม <span style="color: red">*</span></label>
-              <input required v-model="formModal.ServiceCode" placeholder="รหัสคอร์สความงาม" type="text"
+              <label class="label font-bold">รหัสคอร์ส ผิวใสไร้ฝ้ากระ <span style="color: red">*</span></label>
+              <input required v-model="formModal.ServiceCode" placeholder="รหัสคอร์ส ผิวใสไร้ฝ้ากระ" type="text"
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
             </div>
             <div class="px-3 basis-3/4 mb-3">
-              <label class="label font-bold">ชื่อคอร์สความงาม <span style="color: red">*</span></label>
-              <input required v-model="formModal.ServiceName" placeholder="ชื่อคอร์สความงาม" type="text"
+              <label class="label font-bold">ชื่อคอร์ส ผิวใสไร้ฝ้ากระ <span style="color: red">*</span></label>
+              <input required v-model="formModal.ServiceName" placeholder="ชื่อคอร์ส ผิวใสไร้ฝ้ากระ" type="text"
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
             </div>
             <div class="px-3 basis-1/4 mb-3">
-              <label class="label font-bold">ประเภทคอร์สความงาม <span style="color: red">*</span></label>
-              <input required v-model="formModal.ServiceType" placeholder="ประเภทคอร์สความงาม" type="text"
+              <label class="label font-bold">ประเภทคอร์ส ผิวใสไร้ฝ้ากระ <span style="color: red">*</span></label>
+              <input required v-model="formModal.ServiceType" placeholder="ประเภทคอร์ส ผิวใสไร้ฝ้ากระ" type="text"
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
             </div>
             <div class="px-3 basis-1/4 mb-3">
@@ -291,8 +291,8 @@ watch(
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
             </div>
             <div class="px-3 basis-1/4 mb-3">
-              <label class="label font-bold">ราคาคอร์สความงาม <span style="color: red">*</span></label>
-              <input required v-model="formModal.ServicePrice" placeholder="ราคาคอร์สความงาม" type="text"
+              <label class="label font-bold">ราคาคอร์ส ผิวใสไร้ฝ้ากระ <span style="color: red">*</span></label>
+              <input required v-model="formModal.ServicePrice" placeholder="ราคาคอร์ส ผิวใสไร้ฝ้ากระ" type="text"
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" />
             </div>
             <div class="px-3 basis-1/4 mb-3">
@@ -302,10 +302,10 @@ watch(
             </div>
 
             <div class="px-3 basis-3/4 mb-3">
-              <label class="label font-bold">รายละเอียดคอร์สความงาม <span style="color: red">*</span></label>
-              <!-- <input required v-model="formModal.ServiceDetail" placeholder="ชื่อคอร์สความงาม" type="text"
+              <label class="label font-bold">รายละเอียดคอร์ส ผิวใสไร้ฝ้ากระ <span style="color: red">*</span></label>
+              <!-- <input required v-model="formModal.ServiceDetail" placeholder="ชื่อคอร์ส ผิวใสไร้ฝ้ากระ" type="text"
                 class="outline h-10 rounded-lg px-3 outline-gray-300 outline-2 w-full" /> -->
-              <textarea required v-model="formModal.ServiceDetail" placeholder="ชื่อคอร์สความงาม" rows="3"
+              <textarea required v-model="formModal.ServiceDetail" placeholder="ชื่อคอร์ส ผิวใสไร้ฝ้ากระ" rows="3"
                 class="outline rounded-lg px-3 py-2 outline-gray-300 outline-2 w-full resize-none"></textarea>
             </div>
 

@@ -7,9 +7,9 @@ import modalConfirm from "../../../../components/modal-confirm.vue";
 import { getTokenStorage } from "../../../../helpers/storage.js";
 import { useStore } from "vuex";
 const columns = [
-  { label: "รหัสคอร์สความงาม", size: "lg", width: "25%" },
-  { label: "ชื่อคอร์สความงาม", size: "lg", width: "25%" },
-  { label: "ราคาคอร์สความงาม", size: "lg", width: "25%" },
+  { label: "รหัสคอร์ส ผิวใสไร้ฝ้ากระ", size: "lg", width: "25%" },
+  { label: "ชื่อคอร์ส ผิวใสไร้ฝ้ากระ", size: "lg", width: "25%" },
+  { label: "ราคาคอร์ส ผิวใสไร้ฝ้ากระ", size: "lg", width: "25%" },
   { label: "จำนวน", size: "lg", width: "25%" },
   { label: "ราคารวม", size: "lg", width: "25%" },
   { label: "", size: "lg", width: "10%" },
@@ -102,7 +102,7 @@ const onServiceEnter = async () => {
   )
 
   if (!Service) {
-    console.log('ไม่พบคอร์สความงาม')
+    console.log('ไม่พบคอร์ส ผิวใสไร้ฝ้ากระ')
     return
   }
 
@@ -227,7 +227,7 @@ watch(
   <div class="flex justify-end space-x-2">
     <input class="bg-gray-200  px-8 py-2" placeholder="เบอร์โทรลูกค้า" v-model="searchCustomer"
       @keyup.enter="onCusEnter" :disabled="selectedCustomer" />
-    <input class="bg-gray-200 px-8 py-2" placeholder="รหัสคอร์สความงาม" v-model="searchService"
+    <input class="bg-gray-200 px-8 py-2" placeholder="รหัสคอร์ส ผิวใสไร้ฝ้ากระ" v-model="searchService"
       :disabled="!selectedCustomer" @keyup.enter="onServiceEnter" />
     <button class="rounded-full px-8 py-2 bg-custom-blue hover:bg-amber-600t" @click="onOpenModal('add')">
       <div class="flex items-center space-x-2">
@@ -318,8 +318,8 @@ watch(
       </button>
       <form @submit.prevent="onSubmitModal">
         <div class="mt-3 mb-3">
-          <div class="flex flex-wrap flex-row">
-
+          <div class="flex flex-wrap flex-row justify-center">
+            <img :src="getTokenStorage().sestionInfo.BanchQRCode" alt="Preview" class="mt-2  w-80 object-cover" />
           </div>
           <div class="flex justify-between mt-10">
             <div>
